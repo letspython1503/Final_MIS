@@ -6,11 +6,10 @@ from datetime import datetime, date
 from dash import callback, Output, Input
 from dash import no_update
 from dash import dcc
+from pages import structure_call_data_ELT
 
-alldata = structure_call_data_ELT.backend_sender().get_data()
-fetcher = structure_call_data_ELT.FetchStructuredData('data/StructureCallEntries.csv')
-structure_df = fetcher.get_structure()
-UserId = structure_df['UserID'].unique().tolist()
+backend = structure_call_data_ELT.backend_sender()
+UserId = backend.user_id_sender()
 
 dash.register_page(__name__, path="/analyst-structure-calls")
 
@@ -176,7 +175,7 @@ def update_analyst_summary_table(userid, n_clicks, date_range, exchanges, segmen
     else:
         start_date, end_date = all_dates
 
-    alldata = structure_call_data_ELT.backend_sender().get_data_filter_id(
+    alldata = backend.get_data_filter_id(
         userid=userid,
         start_date=start_date,
         end_date=end_date,
@@ -299,7 +298,7 @@ def update_analyst_time_range_summary_table(time_range, user_id, n_clicks, date_
         t = "daily"
     else:
         return dmc.Text("Please select a valid time range.", c="red", mt=30)
-    summary_rows = structure_call_data_ELT.backend_sender().generate_timely_summary_rows_id(
+    summary_rows = backend.generate_timely_summary_rows_id(
         userid=user_id,
         start_date=start_date,
         end_date=end_date,
@@ -390,7 +389,7 @@ def update_analyst_type_range_summary_table(userid, _, date_range, exchanges, se
         end_date = date_range[1]
     else:
         start_date, end_date = all_dates
-    rows = structure_call_data_ELT.backend_sender().render_type_data_gross_id(
+    rows = backend.render_type_data_gross_id(
         userid=userid,
         start_date=start_date,
         end_date=end_date,

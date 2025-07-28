@@ -3,12 +3,13 @@ import numpy as np
 import re
 import dash_mantine_components as dmc
 from dash import html
+import requests
+import io
 
 class FetchStructuredData:
-    def __init__(self, file_path):
-        self.file_path = file_path
-        self.structure = self._load_structure_data()
-        self.structure = self._clean_structure_data(self.structure)
+    def __init__(self, df):
+        self.df = df
+        self.structure = self._clean_structure_data(self.df)
         self.add_exit_price_column()
         self.fill_exit_price_from_status()
         self.add_filter_parameter_columns()
@@ -18,14 +19,6 @@ class FetchStructuredData:
         self.add_stoploss_exit_diff_column()
         self.add_week_str_column()
         self.add_type_column()
-
-    def _load_structure_data(self):
-        try:
-            df = pd.read_csv(self.file_path)
-            return df
-        except Exception as e:
-            print(f"Error loading data: {e}")
-            return None
 
     def _clean_structure_data(self, df):
         if df is not None:
@@ -301,9 +294,11 @@ class FetchStructuredData:
         return self.structure
     
 class backend_sender:
-    def __init__(self, file_path='data/StructureCallEntries.csv'):
-        self.fetcher = FetchStructuredData(file_path)
-        self.df = self.fetcher.get_structure()
+    def __init__(self, file_url=None):
+        # Google Drive download link
+        if file_url is None:
+            file_url = "https://drive.google.com/uc?export=download&id=1P7fgCm0CwaHF1VQp1ninT-IvSZ-mNHVQ"
+        self.df = self.load_csv_from_drive(file_url)
         self.columns = [
             "Total Calls", "Target Hit", "StopLoss Hit",
             "Neither target nor Stop loss hit - Positive",
@@ -314,9 +309,27 @@ class backend_sender:
             "Total Open Calls"
         ]
 
+    def load_csv_from_drive(self, url):
+        try:
+            response = requests.get(url)
+            response.raise_for_status()
+            df = pd.read_csv(io.StringIO(response.text))
+            print("✅ CSV Loaded Successfully from Google Drive.")
+            return FetchStructuredData(df).get_structure()
+        except Exception as e:
+            print("❌ Failed to load CSV from Google Drive:", e)
+            return pd.DataFrame()
+
+    def user_id_sender(self):
+        df = self.df
+        if df.empty or 'UserID' not in df.columns:
+            return []
+        return df['UserID'].dropna().unique().tolist()
+
     def get_data(self, start_date=None, end_date=None, exchange=None, exch_segment=None):
         df = self.df
         if start_date is not None:
+            df['InsertionTime'] = pd.to_datetime(df['InsertionTime'], errors='coerce')
             df = df[df['InsertionTime'] >= pd.to_datetime(start_date)]
         if end_date is not None:
             df = df[df['InsertionTime'] <= pd.to_datetime(end_date)]
@@ -781,6 +794,7 @@ class backend_sender:
     def render_type_data_gross(self, start_date=None, end_date=None, exchange=None, exch_segment=None):
         df = self.df
         if start_date is not None:
+            df['InsertionTime'] = pd.to_datetime(df['InsertionTime'], errors='coerce')
             df = df[df['InsertionTime'] >= pd.to_datetime(start_date)]
         if end_date is not None:
             df = df[df['InsertionTime'] <= pd.to_datetime(end_date)]

@@ -7,8 +7,7 @@ from datetime import datetime, timedelta, date
 from dash import callback, Output, Input, State
 from dash import no_update
 
-alldata = structure_call_data_ELT.backend_sender().get_data()
-
+backend = structure_call_data_ELT.backend_sender()
 dash.register_page(__name__, path="/gross-structure-calls")
 
 layout = dmc.MantineProvider(
@@ -205,7 +204,7 @@ def update_gross_summary_table(n_clicks, date_range, exchanges, segments):
         )
         return table, update_picker
 
-    alldata = structure_call_data_ELT.backend_sender().get_data(
+    alldata = backend.get_data(
         start_date=start_date,
         end_date=end_date,
         exchange=exchanges,
@@ -306,7 +305,7 @@ def update_gross_time_range_summary_table(time_range, date_range, exchanges, seg
     if not time_range:
         summary_rows = [html.Tr([html.Td("Select time period", colSpan=11, style={"textAlign": "center", "color": "red"})])]
     elif time_range == "Yearly":
-        summary_rows = structure_call_data_ELT.backend_sender().generate_timely_summary_rows(
+        summary_rows = backend.generate_timely_summary_rows(
             start_date=start_date,
             end_date=end_date,
             exchange=exchanges,
@@ -314,7 +313,7 @@ def update_gross_time_range_summary_table(time_range, date_range, exchanges, seg
             time="yearly",
         )
     elif time_range == "Monthly":
-        summary_rows = structure_call_data_ELT.backend_sender().generate_timely_summary_rows(
+        summary_rows = backend.generate_timely_summary_rows(
             start_date=start_date,
             end_date=end_date,
             exchange=exchanges,
@@ -322,7 +321,7 @@ def update_gross_time_range_summary_table(time_range, date_range, exchanges, seg
             time="monthly",
         )
     elif time_range == "Daily":
-        summary_rows = structure_call_data_ELT.backend_sender().generate_timely_summary_rows(
+        summary_rows = backend.generate_timely_summary_rows(
             start_date=start_date,
             end_date=end_date,
             exchange=exchanges,
@@ -416,7 +415,7 @@ def update_gross_type_summary_table(time_range, n_clicks, date_range, exchanges,
         )
         return table
 
-    rows = structure_call_data_ELT.backend_sender().render_type_data_gross(
+    rows = backend.render_type_data_gross(
         start_date=start_date,
         end_date=end_date,
         exchange=exchanges,
