@@ -418,7 +418,6 @@ class backend_sender:
             df = df[df['Exchange'].isin(exchange)]
         if exch_segment is not None and len(exch_segment) > 0:
             df = df[df['ExchSegment'].isin(exch_segment)]
-
         df["InsertionTime"] = pd.to_datetime(df["InsertionTime"], errors="coerce")
         if time == "yearly":
             df["MonthPeriod"] = df["InsertionTime"].dt.strftime("%Y")

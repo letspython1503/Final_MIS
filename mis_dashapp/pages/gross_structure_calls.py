@@ -303,7 +303,6 @@ def update_gross_time_range_summary_table(time_range, date_range, exchanges, seg
         end_date = date_range[1]
     else:
         start_date, end_date = all_dates
-
     if not time_range:
         summary_rows = [html.Tr([html.Td("Select time period", colSpan=11, style={"textAlign": "center", "color": "red"})])]
     elif time_range == "Yearly":
