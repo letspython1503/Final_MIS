@@ -16,8 +16,7 @@ layout = dmc.MantineProvider(
     children=[
         dmc.Container(
             [
-                dmc.Title("Gross Level Summary", order=2, mt=20),
-                #Filters
+                dmc.Text("Select Filters", style={"fontSize": 25, "fontWeight": 700, "marginBottom": 20}),
                 dmc.Group(
                     [
                         html.Div(
@@ -92,9 +91,10 @@ layout = dmc.MantineProvider(
                     ],
                     gap=10,
                 ),
-                dmc.Button("Select all dates",id="gross-all-date-button", size="sm", radius="sm", color="black", style={"marginTop": "5px"}),
+                dmc.Button("Select full date range",id="gross-all-date-button", size="sm", radius="sm", color="black", style={"marginTop": "5px"}),
                 dmc.Paper(
                     [
+                        dmc.Text("Gross Level Summary", style={"fontSize": "24px", "fontWeight": 600, "marginBottom": "20px"}),
                         dmc.Table(id="gross-summary-table-container", style={"marginTop": "20px", "width": "100%"})
                     ],
                     style={
@@ -107,7 +107,10 @@ layout = dmc.MantineProvider(
                 ),
                 dmc.Space(h=20),
                 dmc.Paper(
-                    [dmc.Table(id="gross-type-summary-table")],
+                    [
+                        dmc.Text("Calls Type Summary", style={"fontSize": "24px", "fontWeight": 600, "marginBottom": "20px"}),
+                        dmc.Table(id="gross-type-summary-table")
+                    ],
                     style={
                         "backgroundColor": "#ffffff",
                         "padding": "32px",
@@ -128,7 +131,7 @@ layout = dmc.MantineProvider(
         ),
         dmc.Container(
             [
-                dmc.Title("Summary - Yearly/Montly", order=3, mt=20),
+                dmc.Title("Summary - Yearly/Montly/Yearly", order=3, mt=20),
                 dmc.Space(h=20),
                 dmc.Select(data=["Yearly","Monthly","Daily"],id="gross-time-range-select", placeholder="Select Time Range", label="Time Range", size="sm", radius="sm", withAsterisk=False, comboboxProps={"transitionProps": {"transition": "pop", "duration": 200}}),
                 dmc.Paper(
@@ -332,7 +335,7 @@ def update_gross_time_range_summary_table(time_range, date_range, exchanges, seg
         [
             html.Thead([
                 html.Tr([
-                    html.Th("Month", rowSpan=2, style={"backgroundColor": "#fdd835", "textAlign": "center", "padding": "8px", "border": "1px solid #000000"}),
+                    html.Th("Period", rowSpan=2, style={"backgroundColor": "#fdd835", "textAlign": "center", "padding": "8px", "border": "1px solid #000000"}),
                     html.Th("Total Calls", rowSpan=2, style={"backgroundColor": "#fdd835", "textAlign": "center", "padding": "8px", "border": "1px solid #000000"}),
                     html.Th("Target Hit", rowSpan=2, style={"backgroundColor": "#fdd835", "textAlign": "center", "padding": "8px", "border": "1px solid #000000"}),
                     html.Th("StopLoss Hit", rowSpan=2, style={"backgroundColor": "#fdd835", "textAlign": "center", "padding": "8px", "border": "1px solid #000000"}),

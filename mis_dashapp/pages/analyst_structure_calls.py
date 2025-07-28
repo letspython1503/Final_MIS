@@ -121,12 +121,14 @@ layout = dmc.MantineProvider(
         ),
         dmc.Container(
             [
-                dmc.Title("Summary - Yearly/Montly", order=3, mt=20),
+                dmc.Title("Summary - Yearly/Montly/Daily", order=3, mt=20),
                 dmc.Space(h=20),
                 dmc.Select(data=["Yearly","Monthly","Daily"],id="analyst-time-range-select", placeholder="Select Time Range", label="Time Range", size="sm", radius="sm", withAsterisk=False, comboboxProps={"transitionProps": {"transition": "pop", "duration": 200}}),
                 dmc.Space(h=20),
                 dmc.Container(
-                [dmc.Table(id="analyst-time-range-summary-table",)],
+                [
+                    dmc.Text("Please click on the period to get additional details for that period", style={"fontSize": 15, "fontWeight": 500, "marginBottom": 10}),
+                    dmc.Table(id="analyst-time-range-summary-table",)],
                 style={
                     "backgroundColor": "#ffffff",
                     "padding": "32px",
@@ -189,6 +191,7 @@ def update_analyst_summary_table(userid, n_clicks, date_range, exchanges, segmen
             return "-"
 
     table = dmc.Container([
+    dmc.Text("Analyst Level Summary", style={"fontSize": "24px", "fontWeight": 600, "marginBottom": "20px"}),
     dmc.Table(
         [
             html.Thead([
@@ -308,7 +311,7 @@ def update_analyst_time_range_summary_table(time_range, user_id, n_clicks, date_
         [
             html.Thead([
                 html.Tr([
-                    html.Th("Month", rowSpan=2, style={"backgroundColor": "#fdd835", "textAlign": "center", "padding": "8px", "border": "1px solid #000000"}),
+                    html.Th("Period", rowSpan=2, style={"backgroundColor": "#fdd835", "textAlign": "center", "padding": "8px", "border": "1px solid #000000"}),
                     html.Th("Total Calls", rowSpan=2, style={"backgroundColor": "#fdd835", "textAlign": "center", "padding": "8px", "border": "1px solid #000000"}),
                     html.Th("Target Hit", rowSpan=2, style={"backgroundColor": "#fdd835", "textAlign": "center", "padding": "8px", "border": "1px solid #000000"}),
                     html.Th("StopLoss Hit", rowSpan=2, style={"backgroundColor": "#fdd835", "textAlign": "center", "padding": "8px", "border": "1px solid #000000"}),
@@ -397,6 +400,7 @@ def update_analyst_type_range_summary_table(userid, _, date_range, exchanges, se
 
     table = dmc.Container(
         [
+            dmc.Text("Calls Type Summary", style={"fontSize": "24px", "fontWeight": 600, "marginBottom": "20px"}),
             dmc.Table(
                 [
                     html.Thead([
