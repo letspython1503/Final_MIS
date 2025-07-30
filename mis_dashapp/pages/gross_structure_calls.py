@@ -380,29 +380,17 @@ def update_gross_time_range_summary_table(time_range, date_range, exchanges, seg
 def update_gross_type_summary_table(time_range, n_clicks, date_range, exchanges, segments):
     ctx = dash.callback_context
     all_dates = [date(2024, 11, 1), datetime.now().date()]
-
-    # Determine start and end date
-    if ctx.triggered and ctx.triggered[0]["prop_id"].startswith("gross-all-date-button"):
-        start_date, end_date = all_dates
-    elif date_range and len(date_range) == 2:
-        start_date = date_range[0]
-        end_date = date_range[1]
-    else:
-        start_date, end_date = all_dates
-
-    # Only show table if any filter is selected (same logic as summary table)
+    # Check if any filter is selected
     filters_selected = (
-        (date_range and len(date_range) == 2) or
-        (exchanges and len(exchanges) > 0) or
-        (segments and len(segments) > 0)
+        (date_range and len(date_range) == 2)
     )
 
     if not filters_selected:
-        table = dmc.Table(
+        return dmc.Table(
             [
                 html.Tbody([
                     html.Tr([
-                        html.Td("Select date range or any filter", colSpan=11, style={"textAlign": "center", "color": "red"})
+                        html.Td("Select date filter", colSpan=11, style={"textAlign": "center", "color": "red"})
                     ])
                 ])
             ],
@@ -413,13 +401,36 @@ def update_gross_type_summary_table(time_range, n_clicks, date_range, exchanges,
             mt=30,
             style={"borderCollapse": "collapse"}
         )
-        return table
+
+    if ctx.triggered and ctx.triggered[0]["prop_id"].startswith("gross-all-date-button"):
+        start_date, end_date = all_dates
+    elif date_range and len(date_range) == 2:
+        start_date = date_range[0]
+        end_date = date_range[1]
+    else:
+        start_date, end_date = all_dates
 
     rows = backend.render_type_data_gross(
         start_date=start_date,
         end_date=end_date,
         exchange=exchanges,
         exch_segment=segments
+    )
+
+    table = dmc.Table(
+        [
+            html.Tbody([
+                html.Tr([
+                    html.Td("Select date range or any filter", colSpan=11, style={"textAlign": "center", "color": "red"})
+                ])
+            ])
+        ],
+        withTableBorder=True,
+        withColumnBorders=True,
+        striped=True,
+        highlightOnHover=True,
+        mt=30,
+        style={"borderCollapse": "collapse"}
     )
 
     table = dmc.Table(

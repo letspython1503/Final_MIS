@@ -30,10 +30,16 @@ def layout():
                                 href="/",
                                 fw=500,
                                 gradient={"from": "black", "to": "black"},
-                                underline = "hover",
-                                style={"textDecoration": "none","backgroundColor": "#ffffff","fontSize": 20, "fontWeight": 500, "color": "#000000"}
+                                underline="hover",
+                                style={
+                                    "textDecoration": "none",
+                                    "backgroundColor": "#ffffff",
+                                    "fontSize": 20,
+                                    "fontWeight": 500,
+                                    "color": "#000000"
+                                }
                             ),
-                            dmc.Title(                            
+                            dmc.Title(
                                 "MIS DASHBOARD",
                                 order=1,
                                 ta='center',
@@ -55,7 +61,9 @@ def layout():
                                 dmc.Button(
                                     "Gross Level",
                                     variant="gradient",
-                                    style={"fontWeight": 500}
+                                    gradient={"from": "indigo", "to": "cyan", "deg": 45},
+                                    size="md",
+                                    style={"fontWeight": 500, "boxShadow": "0 2px 8px rgba(83,103,252,0.15)"}
                                 ),
                                 href="/gross-structure-calls",
                                 style={"textDecoration": "none"}
@@ -64,7 +72,9 @@ def layout():
                                 dmc.Button(
                                     "Analyst Level",
                                     variant="gradient",
-                                    style={"fontWeight": 500}
+                                    gradient={"from": "teal", "to": "lime", "deg": 45},
+                                    size="md",
+                                    style={"fontWeight": 500, "boxShadow": "0 2px 8px rgba(83,103,252,0.10)"}
                                 ),
                                 href="/analyst-structure-calls",
                                 style={"textDecoration": "none"}
@@ -75,10 +85,10 @@ def layout():
                         mt=20,
                         mb=20
                     ),
-                ], px=100, py=40, style={  
+                ], px=100, py=40, style={
                     "backgroundColor": "#ffffff",
-                    "borderRadius": 0,
-                    "boxShadow": "0 4px 24px rgba(34, 34, 59, 0.08)",
+                    "borderRadius": 16,
+                    "boxShadow": "0 8px 32px rgba(83,103,252,0.10)",
                     "marginTop": 10,
                     "marginBottom": 40,
                     "maxWidth": "1600px",
@@ -89,20 +99,71 @@ def layout():
                     style={
                         "padding": "30px",
                         "backgroundColor": "#ffffff",
-                        "borderRadius": 0,
+                        "borderRadius": 16,
                         "boxShadow": "0 2px 12px rgba(34, 34, 59, 0.04)",
                         "minHeight": "60vh"
                     }
                 ),
             ], style={
-                "backgroundColor": "#f3f4f6",
+                "background": "linear-gradient(135deg, #e0e7ff 0%, #f3f4f6 100%)",
                 "minHeight": "100vh",
                 "padding": 0,
             })
         ]
     )
 
+dash.register_page(
+    "home",
+    path="/",
+    layout=lambda: dmc.Container([
+        dmc.Paper(
+            [
+                dmc.Title("Welcome to the MIS Dashboard", order=2, style={
+                    "color": "#5367fc",
+                    "fontFamily": "Montserrat, sans-serif",
+                    "fontWeight": 700,
+                    "marginBottom": 10,
+                }),
+                dmc.Text(
+                    "Easily monitor and analyze your Management Information System data. "
+                    "Use the navigation above to explore Gross Level and Analyst Level insights.",
+                    ta="center",
+                    size="lg",
+                    style={"fontWeight": 600}
+                ),
+                dmc.Group(
+                    [
+                        dmc.Anchor(
+                            dmc.Button(
+                                "Get Started",
+                                variant="gradient",
+                                gradient={"from": "indigo", "to": "cyan", "deg": 45},
+                                size="lg",
+                                radius="xl",
+                                style={"fontWeight": 600}
+                            ),
+                            href="/gross-structure-calls",
+                            style={"textDecoration": "none"}
+                        ),
+                    ],
+                    justify="center"
+                ),
+            ],
+            shadow="xl",
+            radius="lg",
+            p=40,
+            style={
+                "maxWidth": 600,
+                "margin": "60px auto",
+                "background": "rgba(255,255,255,0.95)",
+                "border": "1px solid #e0e7ff"
+            }
+        ),
+    ], px=50, py=30, style={"backgroundColor": "transparent"})
+)
+
 app.layout = layout()
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 10000))
-    app.run(host="0.0.0.0", port=port, debug=True)
+    app.run(debug=True)
+    #port = int(os.environ.get("PORT", 10000))
+    #app.run(host="0.0.0.0", port=port, debug=True)

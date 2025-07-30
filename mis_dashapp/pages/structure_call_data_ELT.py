@@ -846,36 +846,36 @@ class backend_sender:
             total_open = len(open_df)
 
             count_row = html.Tr([
-            html.Td(call_type, style={"fontWeight": "bold"}),
-            html.Td(total_calls),
-            html.Td(target_hit),
-            html.Td(stoploss_hit),
-            html.Td(n_pos),
-            html.Td(n_neg),
-            html.Td(n_red),
-            html.Td(total_closed),
-            html.Td(o_pos),
-            html.Td(o_neg),
-            html.Td(o_red),
-            html.Td(total_open),
+            html.Td(call_type, style={"fontWeight": "bold","border": "1px solid #000000","textAlign": "center"}),
+            html.Td(total_calls,style={"border": "1px solid #000000","textAlign": "right"}),
+            html.Td(target_hit,style={"border": "1px solid #000000","textAlign": "right"}),
+            html.Td(stoploss_hit,style={"border": "1px solid #000000","textAlign": "right"}),
+            html.Td(n_pos,style={"border": "1px solid #000000","textAlign": "right"}),
+            html.Td(n_neg,style={"border": "1px solid #000000","textAlign": "right"}),
+            html.Td(n_red,style={"border": "1px solid #000000","textAlign": "right"}),
+            html.Td(total_closed,style={"border": "1px solid #000000","textAlign": "right"}),
+            html.Td(o_pos,style={"border": "1px solid #000000","textAlign": "right"}),
+            html.Td(o_neg,style={"border": "1px solid #000000","textAlign": "right"}),
+            html.Td(o_red,style={"border": "1px solid #000000","textAlign": "right"}),
+            html.Td(total_open,style={"border": "1px solid #000000","textAlign": "right"}),
             ])
 
             def pct(val):
                 return f"{(val / total_calls * 100):.1f}%" if total_calls else "0.0%"
 
             percent_row = html.Tr([
-            html.Td(""),
-            html.Td("100%" if total_calls else "0%"),
-            html.Td(pct(target_hit)),
-            html.Td(pct(stoploss_hit)),
-            html.Td(pct(n_pos)),
-            html.Td(pct(n_neg)),
-            html.Td(pct(n_red)),
-            html.Td(pct(total_closed)),
-            html.Td(pct(o_pos)),
-            html.Td(pct(o_neg)),
-            html.Td(pct(o_red)),
-            html.Td(pct(total_open)),
+            html.Td("",style={"border": "1px solid #000000","fontWeight": "bold","textAlign": "center"}),
+            html.Td("100%" if total_calls else "0%",style={"border": "1px solid #000000","textAlign": "right"}),
+            html.Td(pct(target_hit),style={"border": "1px solid #000000","textAlign": "right"}),
+            html.Td(pct(stoploss_hit),style={"border": "1px solid #000000","textAlign": "right"}),
+            html.Td(pct(n_pos),style={"border": "1px solid #000000","textAlign": "right"}),
+            html.Td(pct(n_neg),style={"border": "1px solid #000000","textAlign": "right"}),
+            html.Td(pct(n_red),style={"border": "1px solid #000000","textAlign": "right"}),
+            html.Td(pct(total_closed),style={"border": "1px solid #000000","textAlign": "right"}),
+            html.Td(pct(o_pos),style={"border": "1px solid #000000","textAlign": "right"}),
+            html.Td(pct(o_neg),style={"border": "1px solid #000000","textAlign": "right"}),
+            html.Td(pct(o_red),style={"border": "1px solid #000000","textAlign": "right"}),
+            html.Td(pct(total_open),style={"border": "1px solid #000000","textAlign": "right"}),
             ])
 
             rows.extend([count_row, percent_row])
@@ -937,36 +937,36 @@ class backend_sender:
             total_open = len(open_df)
 
             count_row = html.Tr([
-            html.Td(call_type, style={"fontWeight": "bold"}),
-            html.Td(total_calls),
-            html.Td(target_hit),
-            html.Td(stoploss_hit),
-            html.Td(n_pos),
-            html.Td(n_neg),
-            html.Td(n_red),
-            html.Td(total_closed),
-            html.Td(o_pos),
-            html.Td(o_neg),
-            html.Td(o_red),
-            html.Td(total_open),
+            html.Td(call_type, style={"fontWeight": "bold","border": "1px solid #000000","textAlign": "center"}),
+            html.Td(total_calls,style={"border": "1px solid #000000","textAlign": "right"}),
+            html.Td(target_hit,style={"border": "1px solid #000000","textAlign": "right"}),
+            html.Td(stoploss_hit,style={"border": "1px solid #000000","textAlign": "right"}),
+            html.Td(n_pos,style={"border": "1px solid #000000","textAlign": "right"}),
+            html.Td(n_neg,style={"border": "1px solid #000000","textAlign": "right"}),
+            html.Td(n_red,style={"border": "1px solid #000000","textAlign": "right"}),
+            html.Td(total_closed,style={"border": "1px solid #000000","textAlign": "right"}),
+            html.Td(o_pos,style={"border": "1px solid #000000","textAlign": "right"}),
+            html.Td(o_neg,style={"border": "1px solid #000000","textAlign": "right"}),
+            html.Td(o_red,style={"border": "1px solid #000000","textAlign": "right"}),
+            html.Td(total_open,style={"border": "1px solid #000000","textAlign": "right"}),
             ])
 
             def pct(val):
                 return f"{(val / total_calls * 100):.1f}%" if total_calls else "0.0%"
 
             percent_row = html.Tr([
-            html.Td(""),
-            html.Td("100%" if total_calls else "0%"),
-            html.Td(pct(target_hit)),
-            html.Td(pct(stoploss_hit)),
-            html.Td(pct(n_pos)),
-            html.Td(pct(n_neg)),
-            html.Td(pct(n_red)),
-            html.Td(pct(total_closed)),
-            html.Td(pct(o_pos)),
-            html.Td(pct(o_neg)),
-            html.Td(pct(o_red)),
-            html.Td(pct(total_open)),
+            html.Td("",style={"border": "1px solid #000000","fontWeight": "bold","textAlign": "center"}),
+            html.Td("100%" if total_calls else "0%",style={"border": "1px solid #000000","textAlign": "right"}),
+            html.Td(pct(target_hit),style={"border": "1px solid #000000","textAlign": "right"}),
+            html.Td(pct(stoploss_hit),style={"border": "1px solid #000000","textAlign": "right"}),
+            html.Td(pct(n_pos),style={"border": "1px solid #000000","textAlign": "right"}),
+            html.Td(pct(n_neg),style={"border": "1px solid #000000","textAlign": "right"}),
+            html.Td(pct(n_red),style={"border": "1px solid #000000","textAlign": "right"}),
+            html.Td(pct(total_closed),style={"border": "1px solid #000000","textAlign": "right"}),
+            html.Td(pct(o_pos),style={"border": "1px solid #000000","textAlign": "right"}),
+            html.Td(pct(o_neg),style={"border": "1px solid #000000","textAlign": "right"}),
+            html.Td(pct(o_red),style={"border": "1px solid #000000","textAlign": "right"}),
+            html.Td(pct(total_open),style={"border": "1px solid #000000","textAlign": "right"}),
             ])
 
             rows.extend([count_row, percent_row])
