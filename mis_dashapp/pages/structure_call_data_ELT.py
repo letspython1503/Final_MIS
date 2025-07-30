@@ -297,7 +297,7 @@ class backend_sender:
     def __init__(self, file_url=None):
         # Google Drive download link
         if file_url is None:
-            file_url = "https://drive.google.com/uc?export=download&id=1P7fgCm0CwaHF1VQp1ninT-IvSZ-mNHVQ"
+            file_url = "https://drive.google.com/uc?export=download&id=1AQu8o0w1I4qr1IO6AHi8BsBjA8a6k28e"
         self.df = self.load_csv_from_drive(file_url)
         self.columns = [
             "Total Calls", "Target Hit", "StopLoss Hit",
